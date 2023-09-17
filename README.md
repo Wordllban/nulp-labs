@@ -5,3 +5,4 @@ Laboratory works during achiving bachelor's degree in National University "Lviv 
 
 ### One branch can represent only one subject at time
 ### Branch pattern name `[course_number]-subject-name`
+### Will migrate other repositories into this one soon
