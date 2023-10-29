@@ -146,7 +146,7 @@ if __name__ == '__main__':
     print('=' * 50)
     print(' ')
 
-    # матриця 2xN, сідлова точка 25 - [1, 3]
+    # матриця 2xN, сідлова точка 13 - [0, 2]
     GraphAnalyticalMethodRunner(game_model=np.array([
         [-10, 5, 13, -7],
         [-1, 10, -9, 25],
@@ -159,8 +159,8 @@ if __name__ == '__main__':
     # матриця 2xN, немає сідлової точки
     GraphAnalyticalMethodRunner(
         game_model=np.array([
-            [11, 2, -1, 10],
-            [14, 9, 14, -7],
+            [11, 2, 14, 10],
+            [10, 9, 13, -7],
         ])
     ).run()
     print(' ')
@@ -171,8 +171,8 @@ if __name__ == '__main__':
     GraphAnalyticalMethodRunner(
         game_model=np.array([
             [-8, 5],
-            [19, 13],
-            [-4, -9],
+            [19, -9],
+            [-4, 10],
             [0, -3],
             [-4, 8]
         ])
@@ -187,7 +187,7 @@ if __name__ == '__main__':
             [-10, -3],
             [-5, -1],
             [-4, -6],
-            [-1, -7],
+            [-1, -4],
             [-7, -5]
         ])
     ).run()
