@@ -1,0 +1,80 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id Int @id @default(autoincrement())
+  createAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  email String @unique
+  hash String         // hashed password
+
+  firstName String
+  lastName String
+
+  type Role
+
+  recruiter Recruiter?
+  candidate Candidate?
+}
+
+model Recruiter {
+  id Int @id @default(autoincrement())
+
+  user User @relation(fields: [userId], references: [id], onUpdate: Cascade, onDelete: Cascade)
+  userId Int @unique
+
+  vacancies Vacancy[]
+  interviews Interview[]
+}
+
+model Candidate {
+  id Int @id @default(autoincrement())
+
+  user User @relation(fields: [userId], references: [id], onUpdate: Cascade, onDelete: Cascade)
+  userId Int @unique
+
+  applies Vacancy[]
+  skills String[] @default([]) 
+  experience String? @default("") // some text description of experience 
+
+  interviews Interview[]
+}
+
+model Vacancy {
+  id Int @id @default(autoincrement())
+
+  title String 
+  description String
+  requirements String[]
+  applies Candidate[]
+
+  recruiter Recruiter @relation(fields: [recruiterId], references: [id], onDelete: Cascade, onUpdate: Cascade) 
+  recruiterId Int
+
+  interviews Interview[]
+}
+model Interview {
+  id Int @id @default(autoincrement())
+  feedback String?
+  result Boolean?
+  interviewers Recruiter[]
+  candidate Candidate @relation(fields: [candidateId], references: [id])
+  candidateId Int
+  vacancy Vacancy @relation(fields: [vacancyId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  vacancyId Int
+}
+
+enum Role {
+  RECRUITER
+  CANDIDATE
+}
