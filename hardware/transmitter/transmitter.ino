@@ -11,10 +11,10 @@
 
 
 #define ESP_D1_GPIO 5
-#define ESP_D2_GPIO 4
+#define ESP_D5_GPIO 14
 #define ESP_D6_GPIO 12
 // RF Driver instance configuration
-RH_ASK driver(2000, 2, ESP_D2_GPIO, ESP_D1_GPIO);
+RH_ASK driver(2000, 2, ESP_D6_GPIO, ESP_D5_GPIO);
 
 // Send message to RF receiver
 void switchAlarm(const char* message) {
@@ -28,7 +28,7 @@ void switchAlarm(const char* message) {
 bool alarmState = false;
 // Handle alarm state by button
 void alarmButton() {
-  byte buttonState = digitalRead(ESP_D6_GPIO);
+  byte buttonState = digitalRead(ESP_D1_GPIO);
 
   if(!buttonState) {
     // Reverse alarm state on button pull
@@ -55,7 +55,7 @@ void setup() {
   }
 
   // Setup alarm button
-  pinMode(ESP_D6_GPIO, INPUT_PULLUP);
+  pinMode(ESP_D1_GPIO, INPUT_PULLUP);
 }
 
 void loop() {
